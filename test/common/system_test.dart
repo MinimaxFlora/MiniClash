@@ -199,7 +199,8 @@ void main() {
     });
 
     test('passes a path containing spaces through untouched', () {
-      const path = '/Users/a b/Library/Application Support/com.minimaxflora.miniclash';
+      const path =
+          '/Users/a b/Library/Application Support/com.minimaxflora.miniclash';
 
       final arguments = System.aclArguments(path, 'alice');
 
