@@ -39,6 +39,7 @@ void main(List<String> args) {
         await RustLib.init();
         final version = await system.init();
         final container = await bootstrap.init(version);
+        await MiniClashHttpOverrides.trustCoreRoots();
         HttpOverrides.global = MiniClashHttpOverrides(container);
         request.attach(container.read);
         runApp(

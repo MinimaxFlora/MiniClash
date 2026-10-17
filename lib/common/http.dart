@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:miniclash/common/common.dart';
 import 'package:miniclash/enum/enum.dart';
 import 'package:miniclash/models/models.dart';
@@ -11,6 +12,25 @@ class MiniClashHttpOverrides extends HttpOverrides {
   final ProviderContainer _container;
 
   MiniClashHttpOverrides(this._container);
+
+  static const _coreRootsAsset =
+      'core/Clash.Meta/component/ca/ca-certificates.crt';
+
+  /// The bundle the core embeds; only release CI fills it.
+  static Future<void> trustCoreRoots() async {
+    try {
+      final data = await rootBundle.load(_coreRootsAsset);
+      if (data.lengthInBytes == 0) return;
+      SecurityContext.defaultContext.setTrustedCertificatesBytes(
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+      );
+    } catch (e) {
+      commonPrint.log(
+        'trustCoreRoots error ${compactError(e)}',
+        logLevel: LogLevel.warning,
+      );
+    }
+  }
 
   static String findProxyFor(ProviderContainer container, Uri url) {
     return findProxyForReader(container.read, url);
