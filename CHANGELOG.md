@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.2.0 (2026-10-17)
+
+**Breaking Changes**
+
+- **network** Desktop TUN keys follow the profile unless picked; changed values carry over (e8cbb76)
+
+**Features**
+
+- Upstream FlClash v0.9.1: redesigned dashboard, themes and surfaces with optional Liquid Glass, sortable tables, profile resources, per-key desktop TUN, French, Spanish and Korean, and no Firebase (e8cbb76)
+
+**Bug Fixes**
+
+- **ui** Fix pasting and Chinese input in text fields (e8cbb76)
+
+**Performance**
+
+- **android** Smoother Android UI while the proxy is busy (e8cbb76)
+
 ## v0.1.1 (2026-10-17)
 
 **Bug Fixes**
@@ -18,6 +36,8 @@
 
 <!-- changelog:frozen -->
 <!-- Entries below predate the structured pipeline. Their wording is kept as written; only the heading and list style were normalized. -->
+
+
 
 ## v0.9.0 (2026-10-14)
 

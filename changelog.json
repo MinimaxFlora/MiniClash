@@ -2,6 +2,53 @@
   "schemaVersion": 2,
   "versions": [
     {
+      "version": "0.2.0",
+      "tag": "v0.2.0",
+      "date": "2026-10-17",
+      "prerelease": false,
+      "groups": [
+        {
+          "type": "breaking",
+          "entries": [
+            {
+              "id": "e8cbb76",
+              "scope": "network",
+              "text": "Desktop TUN keys follow the profile unless picked; changed values carry over"
+            }
+          ]
+        },
+        {
+          "type": "feat",
+          "entries": [
+            {
+              "id": "e8cbb76",
+              "text": "Upstream FlClash v0.9.1: redesigned dashboard, themes and surfaces with optional Liquid Glass, sortable tables, profile resources, per-key desktop TUN, French, Spanish and Korean, and no Firebase"
+            }
+          ]
+        },
+        {
+          "type": "fix",
+          "entries": [
+            {
+              "id": "e8cbb76",
+              "scope": "ui",
+              "text": "Fix pasting and Chinese input in text fields"
+            }
+          ]
+        },
+        {
+          "type": "perf",
+          "entries": [
+            {
+              "id": "e8cbb76",
+              "scope": "android",
+              "text": "Smoother Android UI while the proxy is busy"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.1.1",
       "tag": "v0.1.1",
       "date": "2026-10-17",
