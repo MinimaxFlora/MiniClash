@@ -418,7 +418,7 @@
               'p',
               {},
               el('a', {
-                href: 'https://MinimaxFlora.github.io/MiniClash-fdroid-repo/repo?fingerprint=789D6D32668712EF7672F9E58DEEB15FBD6DCEEC5AE7A4371EA72F2AAE8A12FD',
+                href: 'https://MinimaxFlora.github.io/MiniClash-fdroid-repo/repo?fingerprint=D87373577B572D5D313E6528492FD9704FF86418CE238DDC1D1FA59F1DA910D5',
                 text: t('tipFdroidLink'),
               }),
             ),
@@ -624,7 +624,7 @@
       status.replaceChildren(
         t('clError'),
         ' ',
-        el('a', { href: `${REPO}/blob/main/CHANGELOG.md`, text: t('clErrorLink') }),
+        el('a', { href: `${REPO}/blob/master/CHANGELOG.md`, text: t('clErrorLink') }),
       );
       more.hidden = true;
       return;

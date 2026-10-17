@@ -53,6 +53,6 @@
 
 <div dir="ltr">
 
-**List of all changes:** [ChangeLog](https://github.com/MinimaxFlora/MiniClash/blob/main/CHANGELOG.md)
+**List of all changes:** [ChangeLog](https://github.com/MinimaxFlora/MiniClash/blob/master/CHANGELOG.md)
 
 </div>
