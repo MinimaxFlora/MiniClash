@@ -1,7 +1,13 @@
 # Changelog
 
+## v0.1.0 (2026-10-17)
+
+**Features**
+
+- First MiniClash release, rebranded from FlClash with its own package identity, icons, and update feed (02ebe6e)
+
 <!-- changelog:frozen -->
-<!-- Entries below were written before the fork and are kept as they shipped. -->
+<!-- Entries below predate the structured pipeline. Their wording is kept as written; only the heading and list style were normalized. -->
 
 ## v0.9.0 (2026-10-14)
 
