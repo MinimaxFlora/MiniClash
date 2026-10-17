@@ -8,6 +8,8 @@ import 'render.dart';
 
 /// Versions up to and including this tag are frozen: they predate the
 /// structured pipeline and are kept verbatim at the bottom of `CHANGELOG.md`.
+/// A checkout without the tag, such as one whose history starts from a
+/// snapshot, has no frozen range, so every tag it carries is derivable.
 const frozenBoundaryTag = 'v0.8.96';
 
 const changelogDataPath = 'changelog.json';
@@ -51,7 +53,9 @@ class ChangelogBuilder {
   final String boundary;
 
   ChangelogBuildResult build({PendingVersion? pending}) {
-    final boundaryTag = VersionTag.tryParse(boundary);
+    final boundaryTag = git.tagExists(boundary)
+        ? VersionTag.tryParse(boundary)
+        : null;
     final stable = git
         .stableTags()
         .where((tag) => boundaryTag == null || tag.compareTo(boundaryTag) > 0)

@@ -1,5 +1,8 @@
 # Changelog
 
+<!-- changelog:frozen -->
+<!-- Entries below were written before the fork and are kept as they shipped. -->
+
 ## v0.9.0 (2026-10-14)
 
 **Breaking Changes**
@@ -61,9 +64,6 @@
 - **android** Rework the Android VPN service and lifecycle handling (ae29f38)
 - **plugins** Rework the desktop plugins and add the Helper service and Rust bridge (adf715f)
 - **core** Rework the core IPC and process lifecycle (c6eaa0a)
-
-<!-- changelog:frozen -->
-<!-- Entries below predate the structured pipeline. Their wording is kept as written; only the heading and list style were normalized. -->
 
 ## v0.8.96 (2026-08-17)
 
