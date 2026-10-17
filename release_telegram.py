@@ -11,8 +11,11 @@ RUN_ID = os.getenv("RUN_ID")
 
 IS_STABLE = "-" not in TAG
 
-CHAT_ID = "@MiniClash"
-API_URL = f"http://localhost:8081/bot{TELEGRAM_BOT_TOKEN}/sendMediaGroup"
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "@MiniClashPro")
+# The public Bot API rejects uploads over 50 MB, so an installer bigger than
+# this stays on the release page and the post carries the changelog alone.
+API_BASE = os.getenv("TELEGRAM_API_URL", "https://api.telegram.org")
+UPLOAD_LIMIT = 45 * 1024 * 1024
 
 DIST_DIR = os.path.join(os.getcwd(), "dist")
 # Rendered by `tool/changelog.dart render telegram`: plain bullets, already
@@ -38,7 +41,10 @@ for file in os.listdir(DIST_DIR):
     file_path = os.path.join(DIST_DIR, file)
     if os.path.isfile(file_path):
         file_lower = file.lower()
-        if any(kw in file_lower for kw in releaseKeywords):
+        if (
+            any(kw in file_lower for kw in releaseKeywords)
+            and os.path.getsize(file_path) <= UPLOAD_LIMIT
+        ):
             file_key = f"file{i}"
             media.append({
                 "type": "document",
@@ -61,22 +67,34 @@ if os.path.exists(release):
         text += f.read()
     text += "\n"
 
+# HTML, not Markdown: the caption carries changelog entries written by whoever
+# wrote the commit, and HTML is the one Telegram parse mode with a defined
+# escape for them. `tool/changelog.dart render telegram` emits matching markup.
 if media:
     media[-1]["caption"] = text
-    # HTML, not Markdown: the caption carries changelog entries written by
-    # whoever wrote the commit, and HTML is the one Telegram parse mode with a
-    # defined escape for them. `tool/changelog.dart render telegram` emits the
-    # matching markup.
     media[-1]["parse_mode"] = "HTML"
+    request = {
+        "url": f"{API_BASE}/bot{TELEGRAM_BOT_TOKEN}/sendMediaGroup",
+        "data": {"chat_id": CHAT_ID, "media": json.dumps(media)},
+        "files": files,
+    }
+else:
+    request = {
+        "url": f"{API_BASE}/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
+        "data": {
+            "chat_id": CHAT_ID,
+            "text": text,
+            "parse_mode": "HTML",
+            "disable_web_page_preview": "true",
+        },
+        "files": None,
+    }
 
 try:
     response = requests.post(
-        API_URL,
-        data={
-            "chat_id": CHAT_ID,
-            "media": json.dumps(media)
-        },
-        files=files,
+        request["url"],
+        data=request["data"],
+        files=request["files"],
         timeout=300
     )
 finally:

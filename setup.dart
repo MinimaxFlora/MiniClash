@@ -184,9 +184,9 @@ Future<int> _package(
     'activate',
     '-s',
     'git',
-    'https://github.com/MinimaxFlora/flutter_distributor.git',
+    'https://github.com/chen08209/flutter_distributor.git',
     '--git-ref',
-    'v0.6.11-miniclash.3',
+    'v0.6.11-flclash.3',
     '--git-path',
     'packages/flutter_distributor',
   ]);
