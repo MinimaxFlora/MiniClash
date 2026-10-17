@@ -6,6 +6,10 @@
 
 - First MiniClash release, rebranded from FlClash with its own package identity, icons, and update feed (02ebe6e)
 
+**Bug Fixes**
+
+- Fix the changelog links on the release page and website (f8d988f)
+
 <!-- changelog:frozen -->
 <!-- Entries below predate the structured pipeline. Their wording is kept as written; only the heading and list style were normalized. -->
 

@@ -15,6 +15,15 @@
               "text": "First MiniClash release, rebranded from FlClash with its own package identity, icons, and update feed"
             }
           ]
+        },
+        {
+          "type": "fix",
+          "entries": [
+            {
+              "id": "f8d988f",
+              "text": "Fix the changelog links on the release page and website"
+            }
+          ]
         }
       ]
     }
