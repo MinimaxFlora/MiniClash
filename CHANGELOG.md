@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.1 (2026-10-17)
+
+**Bug Fixes**
+
+- **net** Check for updates and downloads against the certificate authorities the core trusts (188b279)
+
 ## v0.1.0 (2026-10-17)
 
 **Features**
