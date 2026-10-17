@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Standalone MiniClash mark for tray and monochrome rendering. -->
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <title>MiniClash glyph</title>
+  <defs>
+    <linearGradient id="m-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6666FB"/>
+      <stop offset="100%" stop-color="#336AB6"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(120 123) scale(1.12) translate(-120 -123)">
+    <path d="M52 184 L52 56 L88 56 L120 138 L152 56 L188 56 L188 184 L152 184 L152 98 L120 176 L88 98 L88 184 Z"
+          fill="url(#m-grad)" stroke="url(#m-grad)" stroke-width="12"
+          stroke-linejoin="round"/>
+    <path d="M129 66 L97 130 L117 130 L115 169 L140 112 L123 112 Z"
+          fill="#FAFAFA" transform="translate(120 118) scale(1.05) translate(-120 -118)"/>
+    <path d="M129 66 L97 130 L117 130 L115 169 L140 112 L123 112 Z"
+          fill="#5CA8E9"/>
+  </g>
+</svg>

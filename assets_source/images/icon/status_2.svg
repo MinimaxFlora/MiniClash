@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="108" height="108" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <title>status_2</title>
+  <defs>
+    <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#72B7FF"/>
+      <stop offset="100%" stop-color="#8066FF"/>
+    </linearGradient>
+  </defs>
+  <circle cx="120" cy="120" r="92" fill="none" stroke="url(#ring-grad)" stroke-width="12" opacity="1"/>
+  <g transform="translate(24 24) scale(0.8)">
+    <path id="mark" d="M52 184 L52 56 L88 56 L120 138 L152 56 L188 56 L188 184 L152 184 L152 98 L120 176 L88 98 L88 184 Z" fill="#6666FB" stroke="#6666FB" stroke-width="6" stroke-linejoin="round"/>
+    <path id="bolt" d="M129 66 L97 130 L117 130 L115 169 L140 112 L123 112 Z" fill="#53B7F2"/>
+  </g>
+</svg>

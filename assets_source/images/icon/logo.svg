@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MiniClash mark: a geometric M with a lightning bolt through its valley. -->
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <title>MiniClash</title>
+  <defs>
+    <linearGradient id="m-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6666FB"/>
+      <stop offset="100%" stop-color="#336AB6"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#FAFAFA"/>
+  <g transform="translate(256 264) scale(1.12) translate(-256 -264)">
+    <path d="M104 392 L104 136 L176 136 L256 316 L336 136 L408 136 L408 392 L336 392 L336 238 L256 392 L176 238 L176 392 Z"
+          fill="url(#m-grad)" stroke="url(#m-grad)" stroke-width="20"
+          stroke-linejoin="round"/>
+    <path d="M274 154 L206 288 L248 288 L244 374 L298 254 L262 254 Z"
+          fill="#FAFAFA" transform="translate(256 264) scale(1.05) translate(-256 -264)"/>
+    <path d="M274 154 L206 288 L248 288 L244 374 L298 254 L262 254 Z"
+          fill="#5CA8E9"/>
+  </g>
+</svg>

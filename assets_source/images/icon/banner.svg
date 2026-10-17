@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="m-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6666FB"/>
+      <stop offset="100%" stop-color="#336AB6"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" fill="#FAFAFA"/>
+  <g transform="translate(95.1 87.6) scale(0.30) translate(-256 -256)">
+    <g transform="translate(256 264) scale(1.12) translate(-256 -264)">
+      <path d="M104 392 L104 136 L176 136 L256 316 L336 136 L408 136 L408 392 L336 392 L336 238 L256 392 L176 238 L176 392 Z"
+            fill="url(#m-grad)" stroke="url(#m-grad)" stroke-width="20" stroke-linejoin="round"/>
+      <path d="M274 154 L206 288 L248 288 L244 374 L298 254 L262 254 Z"
+            fill="#FAFAFA" transform="translate(256 264) scale(1.05) translate(-256 -264)"/>
+      <path d="M274 154 L206 288 L248 288 L244 374 L298 254 L262 254 Z" fill="#5CA8E9"/>
+    </g>
+  </g>
+  <text x="160" y="100" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="600" fill="#1F2937">MiniClash</text>
+</svg>

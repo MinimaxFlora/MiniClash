@@ -1,0 +1,18 @@
+script_template: inno_setup.iss
+app_id: 05FC0AA6-78AA-49EB-B2DB-6BFA0DDC5EF4
+app_name: MiniClash
+publisher: MinimaxFlora
+publisher_url: https://github.com/MinimaxFlora/MiniClash
+display_name: MiniClash
+executable_name: MiniClash.exe
+output_base_file_name: MiniClash.exe
+# Resolved against the project root: flutter_distributor turns this into an
+# absolute path via Directory.current.
+setup_icon_file: windows\runner\resources\app_icon.ico
+locales:
+  # Written into the .iss verbatim, so this one stays relative to the generated
+  # script in dist/.
+  - lang: zh
+    file: ..\windows\packaging\exe\ChineseSimplified.isl
+  - lang: en
+privileges_required: admin
