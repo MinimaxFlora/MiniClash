@@ -104,8 +104,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # 26.04 marks app_indicator_new deprecated and the tray plugin builds
+          # with -Werror, so this bundle check stays on the image that passes.
           - platform: linux
-            os: ubuntu-26.04
+            os: ubuntu-24.04
           - platform: windows
             os: windows-2022
           - platform: macos
