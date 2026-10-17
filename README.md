@@ -133,6 +133,12 @@ Starring the repository is the easiest way to support the project. Questions and
   </picture>
 </a>
 
+## Acknowledgements
+
+MiniClash is a fork of [FlClash](https://github.com/chen08209/FlClash) by chen08209, and it would not exist without
+that project's design work and its release tooling. The proxy engine is [mihomo](https://github.com/MetaCubeX/mihomo)
+(Clash.Meta), also bundled here as the `core/Clash.Meta` submodule. Thanks to both projects and their contributors.
+
 ## License
 
 MiniClash is released under the [GPL-3.0 license](LICENSE).

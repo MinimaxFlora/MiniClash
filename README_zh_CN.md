@@ -125,6 +125,12 @@ Bug 与功能建议请提交到 [GitHub Issues](https://github.com/MinimaxFlora/
   </picture>
 </a>
 
+## 鸣谢
+
+MiniClash 是 [FlClash](https://github.com/chen08209/FlClash) 的分支，界面设计与发布流程都来自 chen08209 的这项工作。
+代理内核是 [mihomo](https://github.com/MetaCubeX/mihomo)（Clash.Meta），在本仓库中以 `core/Clash.Meta` 子模块的形式引入。
+感谢这两个项目及其贡献者。
+
 ## 许可证
 
 MiniClash 以 [GPL-3.0 协议](LICENSE)发布。
