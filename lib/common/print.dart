@@ -8,9 +8,11 @@ import 'package:material_ui/material_ui.dart';
 String compactError(Object error) {
   if (error is DioException) {
     final statusCode = error.response?.statusCode;
+    final cause = error.error;
+    final detail = cause == null || cause is DioException ? '' : ': $cause';
     return statusCode != null
         ? 'DioException(${error.type.name}, HTTP $statusCode)'
-        : 'DioException(${error.type.name})';
+        : 'DioException(${error.type.name}$detail)';
   }
   return error.toString();
 }
