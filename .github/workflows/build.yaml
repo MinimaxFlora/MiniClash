@@ -24,10 +24,10 @@ jobs:
     # A private copy pays for its Actions minutes, so it runs the checks only when
     # started by hand.
     if: &checks github.event_name == 'workflow_dispatch' || !github.event.repository.private
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           submodules: true
@@ -74,10 +74,10 @@ jobs:
   plugins:
     name: Plugins
     if: *checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -112,12 +112,12 @@ jobs:
             os: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
 
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_VERSION }}
           cache-dependency-path: core/go.sum
@@ -165,15 +165,15 @@ jobs:
   go:
     name: Go core
     if: *checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
 
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_VERSION }}
           cache-dependency-path: core/go.sum
@@ -207,15 +207,15 @@ jobs:
   android:
     name: Android unit tests
     if: *checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
 
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_VERSION }}
           cache-dependency-path: core/go.sum
@@ -238,7 +238,7 @@ jobs:
           link-to-sdk: true
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '17'
@@ -268,10 +268,10 @@ jobs:
   rust:
     name: Rust
     if: *checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Rust cache
         uses: Swatinem/rust-cache@v2
@@ -296,7 +296,7 @@ jobs:
     runs-on: windows-2022
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Rust cache
         uses: Swatinem/rust-cache@v2
@@ -349,7 +349,7 @@ jobs:
           Add-Content $env:GITHUB_PATH $cargoPath
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
 
@@ -365,7 +365,7 @@ jobs:
           } >> android/local.properties
 
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_VERSION }}
           cache-dependency-path: core/go.sum
@@ -437,7 +437,7 @@ jobs:
         run: dart setup.dart ${{ matrix.platform }} ${{ env.IS_STABLE == 'true' && '--env stable' || '' }} -v
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: artifact-${{ matrix.platform }}${{ matrix.arch && format('-{0}', matrix.arch) }}
           path: ./dist
@@ -447,15 +447,15 @@ jobs:
     permissions:
       contents: write
     needs: [ build ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Download
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: ./dist/
           pattern: artifact-*
@@ -503,7 +503,7 @@ jobs:
 
       - name: Release
         if: ${{ env.IS_STABLE == 'true' }}
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: ./dist/*
           body_path: './release.md'
@@ -517,9 +517,9 @@ jobs:
           TAG: ${{ github.ref_name }}
           RUN_ID: ${{ github.run_id }}
         run: |
-          python -m pip install --upgrade pip
-          pip install requests
-          python release_telegram.py
+          python3 -c 'import requests' 2>/dev/null ||
+            python3 -m pip install --user --break-system-packages --quiet requests
+          python3 release_telegram.py
 
       - name: Create Homebrew Cask Source Dir
         if: ${{ env.IS_STABLE == 'true' }}
@@ -537,7 +537,7 @@ jobs:
 
       - name: Push to Homebrew tap
         if: ${{ env.IS_STABLE == 'true' }}
-        uses: cpina/github-action-push-to-another-repository@v1.7.2
+        uses: cpina/github-action-push-to-another-repository@v1.7.3
         env:
           SSH_DEPLOY_KEY: ${{ secrets.HOMEBREW_SSH_DEPLOY_KEY }}
         with:
@@ -559,7 +559,7 @@ jobs:
 
       - name: Push to fdroid repo
         if: ${{ env.IS_STABLE == 'true' }}
-        uses: cpina/github-action-push-to-another-repository@v1.7.2
+        uses: cpina/github-action-push-to-another-repository@v1.7.3
         env:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
