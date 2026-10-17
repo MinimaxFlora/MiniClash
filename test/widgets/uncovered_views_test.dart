@@ -3,15 +3,16 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:miniclash/common/l10n_labels.dart';
 import 'package:miniclash/common/request.dart';
 import 'package:miniclash/enum/enum.dart';
 import 'package:miniclash/features/form/form.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/models/models.dart';
 import 'package:miniclash/pages/editor.dart';
 import 'package:miniclash/providers/providers.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/views/about.dart';
 import 'package:miniclash/views/config/rules.dart';
 import 'package:miniclash/views/config/scripts.dart';
@@ -140,9 +141,7 @@ void main() {
     );
   });
 
-  testWidgets('proxies setting sheet renders and switches layout type', (
-    tester,
-  ) async {
+  testWidgets('proxies setting picks its style from a menu', (tester) async {
     final container = _containerFor(tester);
 
     await tester.pumpWidget(
@@ -152,16 +151,17 @@ void main() {
       ),
     );
     await tester.pump();
+    final l10n = AppLocalizations.current;
 
-    expect(find.byType(ProxiesSetting), findsOneWidget);
-    expect(tester.takeException(), null);
+    expect(find.text(l10n.iconStyle), findsOneWidget);
 
-    container
-        .read(proxiesStyleSettingProvider.notifier)
-        .update((state) => state.copyWith(type: ProxiesType.list));
-    await tester.pump();
+    await tester.tap(find.text(l10n.style));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(ProxiesType.tab.label));
+    await tester.pumpAndSettle();
 
-    expect(container.read(proxiesStyleSettingProvider).type, ProxiesType.list);
+    expect(container.read(proxiesStyleSettingProvider).type, ProxiesType.tab);
+    expect(find.text(l10n.iconStyle), findsNothing);
     expect(tester.takeException(), null);
   });
 
@@ -175,17 +175,18 @@ void main() {
       ),
     );
     await tester.pump();
+    final l10n = AppLocalizations.current;
 
-    container
-        .read(proxiesStyleSettingProvider.notifier)
-        .update((state) => state.copyWith(sortType: ProxiesSortType.delay));
-    await tester.pump();
+    await tester.tap(find.text(l10n.sort));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l10n.delay));
+    await tester.pumpAndSettle();
 
     expect(
       container.read(proxiesStyleSettingProvider).sortType,
       ProxiesSortType.delay,
     );
-    expect(tester.takeException(), null);
+    expect(find.byType(CommonPopupMenu), findsNothing);
   });
 
   testWidgets('about view renders version and link sections', (tester) async {
@@ -200,7 +201,7 @@ void main() {
     await tester.pump();
 
     expect(find.byType(AboutView), findsOneWidget);
-    expect(find.text('Project'), findsOneWidget);
+    expect(find.text('Telegram'), findsOneWidget);
     final hero = find.byWidgetPredicate(
       (widget) => widget.runtimeType.toString() == '_AboutHero',
     );
@@ -320,7 +321,7 @@ void main() {
     await tester.tap(find.byTooltip('Add'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Start from scratch'));
-    await settle(tester, 12);
+    await settle(tester, 18);
 
     await tester.enterText(
       find.descendant(
@@ -502,6 +503,9 @@ void main() {
         profileDisabledRuleIdsProvider.overrideWith2(
           (_) => _TestProfileDisabledRuleIds(const []),
         ),
+        clashConfigProvider(
+          profile.id,
+        ).overrideWithValue(const AsyncData(ClashConfig())),
       ],
     );
 
@@ -608,6 +612,9 @@ void main() {
         profileDisabledRuleIdsProvider.overrideWith2(
           (_) => _TestProfileDisabledRuleIds(const []),
         ),
+        clashConfigProvider(
+          profile.id,
+        ).overrideWithValue(const AsyncData(ClashConfig())),
       ],
     );
 

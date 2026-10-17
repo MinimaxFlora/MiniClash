@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:miniclash/enum/enum.dart';
 import 'package:miniclash/models/common.dart';
-import 'package:miniclash/state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:material_ui/material_ui.dart';
@@ -22,14 +19,6 @@ extension NumExt on num {
       }
     }
     return formatted;
-  }
-
-  double get ap {
-    return this * (1 + (globalState.theme.textScaleFactor - 1) * 0.5);
-  }
-
-  double get mAp {
-    return this * min((1 + (globalState.theme.textScaleFactor - 1) * 0.5), 1);
   }
 
   TrafficShow get traffic {

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:miniclash/common/app_localizations.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/pages/error.dart';
 import 'package:flutter/foundation.dart';
@@ -18,6 +19,7 @@ Widget _screen({
     theme: theme,
     localizationsDelegates: const [
       AppLocalizations.delegate,
+      AppUiLocalizations.delegate,
       ...GlobalMaterialLocalizations.delegates,
     ],
     supportedLocales: AppLocalizations.delegate.supportedLocales,

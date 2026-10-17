@@ -1,9 +1,9 @@
 import 'package:drift/native.dart';
 import 'package:miniclash/database/database.dart' hide IconSets;
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/models/models.dart';
 import 'package:miniclash/providers/providers.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/views/profiles/custom/icon.dart';
 import 'package:miniclash/widgets/widgets.dart';
 import 'package:material_ui/material_ui.dart';
@@ -172,8 +172,8 @@ void main() {
     expect(result.value, '');
   });
 
-  testWidgets('every icon sits on the same plate, only the chosen one is '
-      'outlined, and names stay unframed below', (tester) async {
+  testWidgets('every icon sits on the same plate, only the chosen one carries '
+      'the check badge, and names stay unframed below', (tester) async {
     await _pumpPicker(tester, iconSets: [_regions], value: _japan.url);
 
     Finder plateOf(String label) => find.descendant(
@@ -184,10 +184,16 @@ void main() {
         (tester.widget<Material>(plateOf(label)).shape! as OutlinedBorder).side;
     Color? colorOf(String label) =>
         tester.widget<Material>(plateOf(label)).color;
+    Finder badgeOf(String label) => find.descendant(
+      of: find.byTooltip(label).last,
+      matching: find.byType(SelectionBadge),
+    );
 
+    expect(colorOf('Japan'), colorOf('Hong Kong'));
     expect(colorOf('Hong Kong'), isNot(Colors.transparent));
-    expect(colorOf('Hong Kong'), colorOf('Japan'));
-    expect(sideOf('Japan').style, BorderStyle.solid);
+    expect(badgeOf('Japan'), findsOneWidget);
+    expect(badgeOf('Hong Kong'), findsNothing);
+    expect(sideOf('Japan'), BorderSide.none);
     expect(sideOf('Hong Kong'), BorderSide.none);
     expect(
       tester.getTopLeft(find.text('Hong Kong')).dy,
@@ -315,7 +321,7 @@ void main() {
 
     await tester.longPress(find.text('Proxy'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Confirm'));
+    await tester.tap(find.text('Delete'));
     await tester.pumpAndSettle();
 
     expect(find.text('Proxy'), findsNothing);

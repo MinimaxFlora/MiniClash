@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:miniclash/common/common.dart';
 import 'package:miniclash/enum/enum.dart';
 import 'package:miniclash/features/form/form.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/models/models.dart';
 import 'package:miniclash/providers/providers.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/views/profiles/custom/members.dart';
 import 'package:miniclash/views/profiles/custom/quick_edit.dart';
 import 'package:miniclash/widgets/widgets.dart';
@@ -66,7 +66,7 @@ class CustomProvidersView extends ConsumerWidget {
             horizontal: 16,
           ).copyWith(top: context.contentTopPadding, bottom: 16),
           children: [
-            generateSectionV3(
+            generateSection(
               title: appLocalizations.proxies,
               items: [
                 for (final name in proxy)
@@ -79,7 +79,7 @@ class CustomProvidersView extends ConsumerWidget {
                   ),
               ],
             ),
-            generateSectionV3(
+            generateSection(
               title: appLocalizations.rules,
               items: [
                 for (final name in rule)
@@ -161,12 +161,13 @@ class _ProxyProviderItem extends ConsumerWidget {
           ? InfoMessageButton(
               message: context.appLocalizations.invalidProxyProvider(name),
             )
-          : CommonMinIconButtonTheme(
-              child: ElasticButton(
-                child: IconButton.filledTonal(
+          : TonalButtonTheme(
+              size: TonalButtonSize.compact,
+              child: ElasticPress(
+                child: IconButton(
                   tooltip: context.appLocalizations.edit,
                   onPressed: () => _handleEdit(context, ref),
-                  icon: const GlyphIcon(AppGlyphs.edit, fill: 1),
+                  icon: const GlyphIcon(AppGlyphs.edit),
                 ),
               ),
             ),
@@ -407,15 +408,11 @@ class _ProxyProviderOptionsViewState
     return FormRow(
       title: option.label(context.appLocalizations),
       leading: leading,
-      trailing: TextFormField(
-        textAlign: TextAlign.end,
+      trailing: FormRowTextField(
         initialValue: value,
         inputFormatters: TextInputLimits.limit(maxLength),
         onChanged: (value) => onChanged(value.isEmpty ? null : value),
-        decoration: InputDecoration.collapsed(
-          border: const NoInputBorder(),
-          hintText: context.appLocalizations.optional,
-        ),
+        hintText: context.appLocalizations.optional,
       ),
     );
   }
@@ -435,21 +432,17 @@ class _ProxyProviderOptionsViewState
         spacing: 4,
         children: [
           Flexible(
-            child: TextFormField(
+            child: FormRowTextField(
               keyboardType: TextInputType.number,
               inputFormatters: TextInputLimits.digitsOnly(
                 TextInputLimits.number,
               ),
-              textAlign: TextAlign.end,
               initialValue: value?.toString(),
               onChanged: (value) => onChanged(int.tryParse(value)),
-              decoration: InputDecoration.collapsed(
-                border: const NoInputBorder(),
-                hintText: context.appLocalizations.optional,
-              ),
+              hintText: context.appLocalizations.optional,
             ),
           ),
-          Text(suffix, style: context.textTheme.bodyMedium),
+          Text(suffix, style: AppTextStyle.subheadline.of(context)),
         ],
       ),
     );
@@ -604,7 +597,7 @@ class _ProxyProviderOptionsViewState
     void handleAdd() => _handleAddOption(remaining);
     return CommonScaffold(
       title: widget.name,
-      iconActions: customFormActions(context, onSave: _handleSave),
+      confirmationAction: customSaveAction(context, onPressed: _handleSave),
       body: CustomScrollView(
         slivers: [
           SliverPadding(

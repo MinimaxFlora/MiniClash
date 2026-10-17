@@ -1,31 +1,31 @@
 import 'dart:async';
 
 import 'package:miniclash/common/common.dart';
-import 'package:miniclash/icons/icons.dart';
-import 'package:miniclash/models/models.dart' hide FileInfo;
 import 'package:miniclash/pages/editor.dart';
-import 'package:miniclash/widgets/sheet_navigator.dart';
+import 'package:miniclash/ui/icons/icons.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:material_ui/material_ui.dart';
 
-List<IconButtonData> customFormActions(
+IconButtonData customQuickEditAction(
   BuildContext context, {
-  VoidCallback? onQuickEdit,
-  required VoidCallback onSave,
+  required VoidCallback onPressed,
 }) {
-  final appLocalizations = context.appLocalizations;
-  return [
-    if (onQuickEdit != null)
-      IconButtonData(
-        glyph: AppGlyphs.compose,
-        onPressed: onQuickEdit,
-        tooltip: appLocalizations.quickEdit,
-      ),
-    IconButtonData(
-      glyph: AppGlyphs.check,
-      onPressed: onSave,
-      tooltip: appLocalizations.save,
-    ),
-  ];
+  return IconButtonData(
+    glyph: AppGlyphs.compose,
+    onPressed: onPressed,
+    tooltip: context.appLocalizations.quickEdit,
+  );
+}
+
+IconButtonData customSaveAction(
+  BuildContext context, {
+  required VoidCallback onPressed,
+}) {
+  return IconButtonData(
+    glyph: AppGlyphs.check,
+    onPressed: onPressed,
+    tooltip: context.appLocalizations.save,
+  );
 }
 
 /// Thrown by an `apply` the user called off, which keeps the editor open.
@@ -65,6 +65,7 @@ Future<void> showCustomQuickEdit(
           message: TextSpan(
             text: '$message\n\n${currentAppLocalizations.discardChanges}',
           ),
+          destructive: true,
         );
         return res == true;
       }

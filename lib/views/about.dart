@@ -2,16 +2,28 @@ import 'dart:async';
 
 import 'package:miniclash/common/common.dart';
 import 'package:miniclash/enum/enum.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/providers/providers.dart';
 import 'package:miniclash/state.dart';
-import 'package:miniclash/widgets/list.dart';
-import 'package:miniclash/widgets/scaffold.dart';
+import 'package:miniclash/ui/icons/icons.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+@immutable
+class Contributor {
+  final String avatar;
+  final String name;
+
+  const Contributor({required this.avatar, required this.name});
+}
+
 class AboutView extends ConsumerWidget {
   const AboutView({super.key});
+
+  static const _contributors = [
+    Contributor(avatar: 'assets/images/avatar/june2.jpg', name: 'June2'),
+    Contributor(avatar: 'assets/images/avatar/arue.jpg', name: 'Arue'),
+  ];
 
   Future<void> _checkUpdate(BuildContext context, WidgetRef ref) async {
     if (ref.read(loadingProvider(LoadingTag.checkUpdate))) return;
@@ -72,7 +84,7 @@ class AboutView extends ConsumerWidget {
             },
           ),
           const SizedBox(height: 8),
-          generateSectionV3(
+          generateSection(
             title: appLocalizations.more,
             items: [
               _buildLinkItem(
@@ -84,9 +96,28 @@ class AboutView extends ConsumerWidget {
               _buildLinkItem(
                 glyph: AppGlyphs.cpu,
                 title: appLocalizations.core,
-                url: 'https://github.com/chen08209/Clash.Meta/tree/FlClash',
+                url: 'https://github.com/chen08209/Clash.Meta/tree/MiniClash',
                 label: 'github.com/chen08209/Clash.Meta',
               ),
+              _buildLinkItem(
+                glyph: AppGlyphs.send,
+                title: 'Telegram',
+                url: 'https://t.me/MiniClash',
+                label: 't.me/MiniClash',
+              ),
+            ],
+          ),
+          generateSection(
+            title: appLocalizations.otherContributors,
+            items: [
+              for (final contributor in _contributors)
+                ListItem(
+                  leading: CircleAvatar(
+                    foregroundImage: AssetImage(contributor.avatar),
+                  ),
+                  title: Text(contributor.name),
+                  subtitle: Text(appLocalizations.appIconDesign),
+                ),
             ],
           ),
         ],
@@ -112,7 +143,6 @@ class _AboutHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
-    final textTheme = context.textTheme;
     final appLocalizations = context.appLocalizations;
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
@@ -122,7 +152,7 @@ class _AboutHero extends StatelessWidget {
             onEnterDeveloperMode: onEnterDeveloperMode,
             child: DecoratedBox(
               decoration: ShapeDecoration(
-                color: colorScheme.surfaceContainerHigh,
+                color: context.raisedSurfaceLevel.colorOf(colorScheme),
                 shape: AppShape.all(AppCorner.fit(_logoSize)),
               ),
               child: Padding(
@@ -138,9 +168,7 @@ class _AboutHero extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             appName,
-            style: textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+            style: AppTextStyle.title2.of(context, emphasized: true),
           ),
           const SizedBox(height: 10),
           Wrap(
@@ -155,7 +183,7 @@ class _AboutHero extends StatelessWidget {
               ),
               _Pill(
                 label: 'GPL-3.0',
-                color: colorScheme.surfaceContainerHighest,
+                color: context.raisedSurfaceLevel.colorOf(colorScheme),
                 foregroundColor: colorScheme.onSurfaceVariant,
               ),
             ],
@@ -166,17 +194,17 @@ class _AboutHero extends StatelessWidget {
             child: Text(
               appLocalizations.desc,
               textAlign: TextAlign.center,
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-                height: 1.5,
-              ),
+              style: AppTextStyle.subheadline
+                  .of(context)
+                  .copyWith(color: colorScheme.onSurfaceVariant, height: 1.5),
             ),
           ),
           const SizedBox(height: 20),
-          FilledButton.tonalIcon(
+          TonalButton(
+            size: TonalButtonSize.bar,
+            glyph: AppGlyphs.sync,
+            label: appLocalizations.checkUpdate,
             onPressed: isCheckingUpdate ? null : onCheckUpdate,
-            icon: const GlyphIcon(AppGlyphs.sync, fill: 1),
-            label: Text(appLocalizations.checkUpdate),
           ),
         ],
       ),
@@ -203,10 +231,9 @@ class _Pill extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         child: Text(
           label,
-          style: context.textTheme.labelMedium?.copyWith(
-            color: foregroundColor,
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppTextStyle.caption1
+              .of(context, emphasized: true)
+              .copyWith(color: foregroundColor),
         ),
       ),
     );
@@ -223,7 +250,7 @@ class _LinkBadge extends StatelessWidget {
     final colorScheme = context.colorScheme;
     return DecoratedBox(
       decoration: ShapeDecoration(
-        color: colorScheme.secondaryContainer,
+        color: context.raisedSurfaceLevel.colorOf(colorScheme),
         shape: AppShape.md,
       ),
       child: SizedBox.square(
@@ -232,7 +259,7 @@ class _LinkBadge extends StatelessWidget {
           child: GlyphIcon(
             glyph,
             size: 20,
-            color: colorScheme.onSecondaryContainer,
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
       ),

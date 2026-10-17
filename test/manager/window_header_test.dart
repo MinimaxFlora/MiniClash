@@ -1,9 +1,10 @@
 import 'package:miniclash/common/common.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/manager/window_manager.dart';
 import 'package:miniclash/providers/providers.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -511,6 +512,7 @@ void main() {
         MaterialApp(
           localizationsDelegates: const [
             AppLocalizations.delegate,
+            AppUiLocalizations.delegate,
             ...GlobalMaterialLocalizations.delegates,
           ],
           supportedLocales: AppLocalizations.delegate.supportedLocales,

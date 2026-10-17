@@ -1,15 +1,15 @@
 import 'package:miniclash/common/common.dart';
-import 'package:miniclash/common/theme.dart';
 import 'package:miniclash/core/controller.dart';
 import 'package:miniclash/core/interface.dart';
 import 'package:miniclash/enum/enum.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/manager/status_manager.dart';
 import 'package:miniclash/providers/action.dart';
 import 'package:miniclash/providers/app.dart';
 import 'package:miniclash/providers/core.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -40,7 +40,6 @@ Future<ProviderContainer> _pumpGeoResourceAction(
         supportedLocales: AppLocalizations.delegate.supportedLocales,
         builder: (context, child) {
           globalState.measure = Measure.of(context, 1);
-          globalState.theme = CommonTheme.of(context, 1);
           return StatusManager(child: child!);
         },
         home: const SizedBox(),

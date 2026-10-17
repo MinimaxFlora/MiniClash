@@ -4,9 +4,10 @@ import 'dart:io';
 import 'package:miniclash/common/common.dart';
 import 'package:miniclash/common/launch.dart';
 import 'package:miniclash/enum/enum.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/models/config.dart';
 import 'package:miniclash/providers/providers.dart';
+import 'package:miniclash/ui/icons/icons.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:flutter/foundation.dart' show ValueListenable;
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -444,9 +445,7 @@ class WindowHeaderBar extends StatelessWidget {
     final colorScheme = context.colorScheme;
     return Material(
       color: translucent ? Colors.transparent : null,
-      shape: translucent
-          ? null
-          : Border(bottom: BorderSide(color: colorScheme.outlineVariant)),
+      shape: Border(bottom: Divider.createBorderSide(context)),
       child: SizedBox(
         height: height,
         child: Stack(
@@ -460,10 +459,10 @@ class WindowHeaderBar extends StatelessWidget {
                 onDoubleTap: onDoubleTap,
                 child: ColoredBox(
                   color: translucent
-                      ? colorScheme.surfaceContainer.withValues(
+                      ? colorScheme.chromeSurface.withValues(
                           alpha: kSidebarBlurOpacity,
                         )
-                      : colorScheme.surfaceContainerHighest,
+                      : colorScheme.chromeSurface,
                 ),
               ),
             ),

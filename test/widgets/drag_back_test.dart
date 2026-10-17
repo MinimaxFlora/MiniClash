@@ -1,9 +1,9 @@
-import 'package:miniclash/common/navigator.dart';
-import 'package:miniclash/widgets/inherited.dart';
-import 'package:miniclash/widgets/open_container.dart';
-import 'package:miniclash/widgets/paged_sheet.dart';
-import 'package:miniclash/widgets/sheet.dart';
-import 'package:miniclash/widgets/side_sheet.dart';
+import 'package:miniclash/ui/inherited.dart';
+import 'package:miniclash/ui/navigator.dart';
+import 'package:miniclash/ui/open_container.dart';
+import 'package:miniclash/ui/paged_sheet.dart';
+import 'package:miniclash/ui/sheet.dart';
+import 'package:miniclash/ui/side_sheet.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -4,13 +4,13 @@ import 'dart:io';
 
 import 'package:miniclash/common/common.dart';
 import 'package:miniclash/enum/enum.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/models/models.dart';
 import 'package:miniclash/pages/editor.dart';
 import 'package:miniclash/providers/action.dart';
 import 'package:miniclash/providers/app.dart';
 import 'package:miniclash/providers/database.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/widgets/widgets.dart';
 import 'package:collection/collection.dart';
 import 'package:material_ui/material_ui.dart';
@@ -39,6 +39,8 @@ class _ScriptsViewState extends ConsumerState<ScriptsView> {
       message: TextSpan(
         text: appLocalizations.deleteTip(appLocalizations.script),
       ),
+      destructive: true,
+      confirmText: appLocalizations.delete,
     );
     if (res != true || !mounted) {
       return;
@@ -348,10 +350,7 @@ class _ScriptsViewState extends ConsumerState<ScriptsView> {
           targetBuilder: (open) {
             return IconButton(
               tooltip: appLocalizations.add,
-              onPressed: () {
-                final isMobile = ref.read(isMobileViewProvider);
-                open(offset: Offset(0, isMobile ? 0 : 20));
-              },
+              onPressed: open,
               icon: const GlyphIcon(AppGlyphs.addCircle),
             );
           },
@@ -400,11 +399,7 @@ class _ScriptTrailing extends ConsumerWidget {
           children: [...previous, ?current],
         ),
         child: isUpdating
-            ? const SizedBox.square(
-                key: ValueKey('loading'),
-                dimension: 24,
-                child: CommonCircleLoading(),
-              )
+            ? const CommonCircleLoading(key: ValueKey('loading'), size: 24)
             : LastUpdateTimeText(
                 key: const ValueKey('time'),
                 lastUpdateDate: script.lastUpdateTime,

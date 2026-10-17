@@ -1,8 +1,8 @@
 import 'package:miniclash/enum/enum.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/manager/status_manager.dart';
 import 'package:miniclash/models/models.dart';
 import 'package:miniclash/providers/app.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 

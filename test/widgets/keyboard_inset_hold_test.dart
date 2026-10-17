@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:miniclash/widgets/inherited.dart';
-import 'package:miniclash/widgets/keyboard_inset_hold.dart';
+import 'package:miniclash/ui/inherited.dart';
+import 'package:miniclash/ui/keyboard_inset_hold.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 

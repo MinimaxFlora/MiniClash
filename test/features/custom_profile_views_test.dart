@@ -6,7 +6,6 @@ import 'package:miniclash/core/controller.dart';
 import 'package:miniclash/core/interface.dart';
 import 'package:miniclash/enum/enum.dart';
 import 'package:miniclash/features/form/form.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/models/models.dart' hide FileInfo;
 import 'package:miniclash/pages/editor.dart';
@@ -17,6 +16,7 @@ import 'package:miniclash/providers/core.dart';
 import 'package:miniclash/providers/database.dart';
 import 'package:miniclash/providers/state.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/views/profiles/custom/custom_proxies.dart';
 import 'package:miniclash/views/profiles/custom/dialers.dart';
 import 'package:miniclash/views/profiles/custom/groups.dart';
@@ -328,7 +328,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(menuItem(AppLocalizations.current.delete));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(AppLocalizations.current.confirm));
+      await tester.tap(find.text(AppLocalizations.current.delete));
       await tester.pumpAndSettle();
 
       expect(notifier.value.map((rule) => rule.id), [1, 3]);
@@ -412,7 +412,7 @@ void main() {
     await tester.pump();
     await tester.tap(find.byTooltip(AppLocalizations.current.delete));
     await tester.pumpAndSettle();
-    await tester.tap(find.text(AppLocalizations.current.confirm));
+    await tester.tap(find.text(AppLocalizations.current.delete));
     await tester.pumpAndSettle();
 
     expect(notifier.deleted.single, {100, 102});
@@ -497,7 +497,7 @@ void main() {
         find.text(AppLocalizations.current.confirmDeleteProxyGroup),
         findsOneWidget,
       );
-      await tester.tap(find.text(AppLocalizations.current.confirm));
+      await tester.tap(find.text(AppLocalizations.current.delete));
       await tester.pumpAndSettle();
 
       expect(notifier.deleted.single, {101});
@@ -522,7 +522,39 @@ void main() {
         find.text(AppLocalizations.current.proxyGroupInUse('Group 1')),
         findsOneWidget,
       );
-      await tester.tap(find.text(AppLocalizations.current.confirm));
+      await tester.tap(find.text(AppLocalizations.current.delete));
+      await tester.pumpAndSettle();
+
+      expect(notifier.deleted.single, {101});
+
+      await tester.pumpWidget(const SizedBox.shrink());
+    });
+
+    testWidgets('the edit page warns when the profile still names the group', (
+      tester,
+    ) async {
+      final notifier = await _pumpProxyGroups(tester, inUse: {'Group 1'});
+
+      await tester.tap(find.text('Group 1'));
+      await tester.pumpAndSettle();
+      final delete = find.descendant(
+        of: find.byType(EditProxyGroupView),
+        matching: find.text(AppLocalizations.current.delete),
+      );
+      await tester.ensureVisible(delete);
+      await tester.pumpAndSettle();
+      await tester.tap(delete);
+      await tester.pumpAndSettle();
+      expect(
+        find.text(AppLocalizations.current.proxyGroupInUse('Group 1')),
+        findsOneWidget,
+      );
+      await tester.tap(
+        find.descendant(
+          of: find.byType(CommonDialog),
+          matching: find.text(AppLocalizations.current.delete),
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(notifier.deleted.single, {101});
@@ -614,7 +646,11 @@ void main() {
     Finder valueIn(String title, String value) =>
         find.descendant(of: row(title), matching: find.text(value));
     Future<void> tapRow(String title) async {
-      await tester.ensureVisible(row(title));
+      await Scrollable.ensureVisible(
+        tester.element(row(title)),
+        alignment: 0.5,
+      );
+      await tester.pumpAndSettle();
       await tester.tap(row(title));
       await tester.pumpAndSettle();
     }
@@ -725,7 +761,9 @@ void main() {
     for (final title in loadBalanceOptions) {
       await add(title);
     }
-    await tester.tap(find.byTooltip(currentAppLocalizations.save));
+    await tester.tap(
+      find.widgetWithText(TextButton, currentAppLocalizations.save),
+    );
     await _expectClosesWithoutIssues(tester);
     await tester.pumpAndSettle();
 
@@ -784,7 +822,9 @@ void main() {
       await tester.enterText(fieldIn(title), '');
     }
     await tester.pump();
-    await tester.tap(find.byTooltip(currentAppLocalizations.save));
+    await tester.tap(
+      find.widgetWithText(TextButton, currentAppLocalizations.save),
+    );
     await _expectClosesWithoutIssues(tester);
     await tester.pumpAndSettle();
 
@@ -843,7 +883,9 @@ void main() {
           (state) => state.copyWith(name: 'Mine', proxies: const ['DIRECT']),
         );
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip(currentAppLocalizations.save));
+    await tester.tap(
+      find.widgetWithText(TextButton, currentAppLocalizations.save),
+    );
     await _expectClosesWithoutIssues(tester);
 
     expect(proxyGroups.value.map((group) => group.name), ['Mine']);
@@ -913,7 +955,9 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      await tester.tap(find.byTooltip(currentAppLocalizations.save));
+      await tester.tap(
+        find.widgetWithText(TextButton, currentAppLocalizations.save),
+      );
       await tester.pumpAndSettle();
 
       expect(proxyGroups.value, isEmpty);
@@ -936,7 +980,9 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      await tester.tap(find.byTooltip(currentAppLocalizations.save));
+      await tester.tap(
+        find.widgetWithText(TextButton, currentAppLocalizations.save),
+      );
       await tester.pump();
       form.update((state) => state.copyWith(name: 'Later'));
       when(() => core.validateFilters(any())).thenAnswer((_) async => ['', '']);

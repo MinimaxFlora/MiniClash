@@ -1,10 +1,9 @@
 import 'package:miniclash/common/common.dart';
-import 'package:miniclash/icons/icons.dart';
+import 'package:miniclash/ui/icons/icons.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:miniclash/views/config/dns.dart';
 import 'package:miniclash/views/config/network.dart';
 import 'package:miniclash/views/config/scripts.dart';
-import 'package:miniclash/widgets/list.dart';
-import 'package:miniclash/widgets/scaffold.dart';
 import 'package:material_ui/material_ui.dart';
 
 import 'rules.dart';
@@ -46,7 +45,7 @@ class AdvancedConfigView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
         ).copyWith(top: context.contentTopPadding, bottom: 16),
-        children: [generateSectionV3(items: items)],
+        children: [generateSection(items: items)],
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:miniclash/common/common.dart';
-import 'package:miniclash/common/theme.dart';
 import 'package:miniclash/enum/enum.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/manager/status_manager.dart';
@@ -12,6 +11,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/test_app.dart';
 import 'helpers/test_profiles.dart';
 
 void main() {
@@ -42,13 +42,12 @@ void main() {
           navigatorKey: globalState.navigatorKey,
           localizationsDelegates: const [
             AppLocalizations.delegate,
+            AppUiLocalizations.delegate,
             ...GlobalMaterialLocalizations.delegates,
           ],
           supportedLocales: AppLocalizations.delegate.supportedLocales,
           builder: (context, child) {
-            globalState.measure = Measure.of(context, 1);
-            globalState.theme = CommonTheme.of(context, 1);
-            return StatusManager(child: child!);
+            return wrapAppScopes(context, StatusManager(child: child!));
           },
           home: const SizedBox(key: Key('child')),
         ),

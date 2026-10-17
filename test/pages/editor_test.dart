@@ -1,6 +1,6 @@
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/pages/editor.dart';
 import 'package:miniclash/providers/app.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,6 +16,9 @@ void main() {
   testWidgets('shows the unavailable state without the native editor library', (
     tester,
   ) async {
+    final ready = editorNativeReady;
+    editorNativeReady = () => false;
+    addTearDown(() => editorNativeReady = ready);
     await tester.pumpWidget(
       TestApp(
         overrides: [_viewSizeOverride],

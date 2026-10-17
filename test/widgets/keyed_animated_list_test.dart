@@ -1,4 +1,4 @@
-import 'package:miniclash/widgets/keyed_animated_list.dart';
+import 'package:miniclash/ui/keyed_animated_list.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 

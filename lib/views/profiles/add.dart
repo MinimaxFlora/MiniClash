@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:miniclash/common/common.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/pages/scan.dart';
 import 'package:miniclash/providers/providers.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/views/profiles/custom/custom.dart';
+import 'package:miniclash/features/form/form.dart';
 import 'package:miniclash/widgets/widgets.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,7 +57,8 @@ class AddProfileView extends ConsumerWidget {
   Future<void> _toAdd(WidgetRef ref) async {
     final profilesAction = ref.read(profilesActionProvider.notifier);
     final appLocalizations = context.appLocalizations;
-    final res = await dialogs.showNamedUrlsInput(
+    final res = await showNamedUrlsForm(
+      context,
       title: appLocalizations.importFromLink,
       urlLabel: appLocalizations.link,
       batchTip: appLocalizations.batchLinkInputTip,

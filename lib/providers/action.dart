@@ -15,6 +15,7 @@ import 'package:miniclash/plugins/service.dart';
 import 'package:miniclash/providers/actions/system_exit.dart';
 import 'package:miniclash/providers/providers.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/foundation.dart' show compute;
 import 'package:flutter/services.dart';

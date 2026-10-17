@@ -1,4 +1,4 @@
-import 'package:miniclash/widgets/text_loupe.dart';
+import 'package:miniclash/ui/text_loupe.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 

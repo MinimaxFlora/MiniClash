@@ -1,9 +1,9 @@
 import 'package:miniclash/common/common.dart';
 import 'package:miniclash/common/ip_quality.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/models/models.dart';
 import 'package:miniclash/providers/config.dart';
 import 'package:miniclash/providers/ip_quality.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/widgets/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
@@ -95,12 +95,12 @@ class _IpQualityDetail extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(_tipInset, 8, _tipInset, 0),
           child: Text(
             localizations.detectionTip,
-            style: context.textTheme.bodyLarge?.copyWith(
-              color: context.colorScheme.onSurfaceVariant,
-            ),
+            style: AppTextStyle.body
+                .of(context)
+                .copyWith(color: context.colorScheme.onSurfaceVariant),
           ),
         ),
-        generateSectionV3(
+        generateSection(
           title: localizations.basicInfo,
           items: [
             DetailRow(
@@ -121,12 +121,12 @@ class _IpQualityDetail extends ConsumerWidget {
           ],
         ),
         if (!failed)
-          generateSectionV3(
+          generateSection(
             title: localizations.network,
             items: _networkRows(context, quality),
           ),
         if (failed && error is IpQualityLookupException)
-          generateSectionV3(
+          generateSection(
             title: localizations.ipQualitySources,
             items: [
               for (final failure in error.failures)
@@ -136,7 +136,7 @@ class _IpQualityDetail extends ConsumerWidget {
                 ),
             ],
           ),
-        generateSectionV3(
+        generateSection(
           title: localizations.other,
           items: const [_HideIpItem()],
         ),

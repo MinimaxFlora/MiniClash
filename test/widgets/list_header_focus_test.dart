@@ -1,5 +1,4 @@
 import 'package:miniclash/common/common.dart';
-import 'package:miniclash/common/theme.dart';
 import 'package:miniclash/enum/enum.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/models/models.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/test_app.dart';
 import '../helpers/test_profiles.dart';
 
 void main() {
@@ -65,13 +65,12 @@ void main() {
         child: MaterialApp(
           localizationsDelegates: const [
             AppLocalizations.delegate,
+            AppUiLocalizations.delegate,
             ...GlobalMaterialLocalizations.delegates,
           ],
           supportedLocales: AppLocalizations.delegate.supportedLocales,
           builder: (context, child) {
-            globalState.measure = Measure.of(context, 1);
-            globalState.theme = CommonTheme.of(context, 1);
-            return child!;
+            return wrapAppScopes(context, child!);
           },
           home: const ProxiesView(),
         ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:miniclash/common/app_localizations.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/manager/locale_manager.dart';
 import 'package:miniclash/manager/tray_manager.dart';
@@ -122,6 +123,7 @@ void main() {
           locale: locale,
           localizationsDelegates: const [
             AppLocalizations.delegate,
+            AppUiLocalizations.delegate,
             ...GlobalMaterialLocalizations.delegates,
           ],
           supportedLocales: AppLocalizations.delegate.supportedLocales,

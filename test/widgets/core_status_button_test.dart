@@ -1,7 +1,7 @@
 import 'package:miniclash/enum/enum.dart';
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/providers/providers.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/views/dashboard/widgets/core_status_button.dart';
 import 'package:miniclash/widgets/widgets.dart';
 import 'package:material_ui/material_ui.dart';
@@ -25,7 +25,6 @@ void main() {
           container: container,
           child: TestApp(
             includeNavigatorKey: false,
-            setTheme: false,
             homeBuilder: (child) => Scaffold(body: Center(child: child)),
             child: const CoreStatusButton(),
           ),
@@ -73,7 +72,6 @@ void main() {
           container: container,
           child: TestApp(
             includeNavigatorKey: false,
-            setTheme: false,
             homeBuilder: (child) => Scaffold(body: Center(child: child)),
             child: const CoreStatusButton(),
           ),
@@ -114,7 +112,6 @@ void main() {
         container: container,
         child: TestApp(
           includeNavigatorKey: false,
-          setTheme: false,
           homeBuilder: (child) => Scaffold(body: Center(child: child)),
           child: const CoreStatusButton(),
         ),
@@ -150,7 +147,6 @@ void main() {
         container: container,
         child: TestApp(
           includeNavigatorKey: false,
-          setTheme: false,
           homeBuilder: (child) => Scaffold(body: Center(child: child)),
           child: const CoreStatusButton(),
         ),

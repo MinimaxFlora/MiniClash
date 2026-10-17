@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:miniclash/common/navigator.dart';
+import 'package:miniclash/ui/navigator.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 

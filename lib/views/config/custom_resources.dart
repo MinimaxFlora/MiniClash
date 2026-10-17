@@ -1,11 +1,10 @@
 import 'package:miniclash/common/common.dart';
-import 'package:miniclash/icons/icons.dart';
+import 'package:miniclash/ui/icons/icons.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:miniclash/views/config/filters.dart';
 import 'package:miniclash/views/config/icon_sets.dart';
 import 'package:miniclash/views/config/providers.dart';
 import 'package:miniclash/views/profiles/custom/custom_proxies.dart';
-import 'package:miniclash/widgets/list.dart';
-import 'package:miniclash/widgets/scaffold.dart';
 import 'package:material_ui/material_ui.dart';
 
 class CustomResourcesView extends StatelessWidget {
@@ -42,7 +41,7 @@ class CustomResourcesView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
         ).copyWith(top: context.contentTopPadding, bottom: 16),
-        children: [generateSectionV3(items: items)],
+        children: [generateSection(items: items)],
       ),
     );
   }

@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:miniclash/icons/icons.dart';
 import 'package:miniclash/providers/app.dart';
 import 'package:miniclash/providers/config.dart';
 import 'package:miniclash/providers/on_demand.dart';
 import 'package:miniclash/providers/state.dart';
 import 'package:miniclash/l10n/l10n.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/icons/icons.dart';
 import 'package:miniclash/views/config/on_demand.dart';
 import 'package:miniclash/widgets/widgets.dart';
 import 'package:flutter/services.dart';
@@ -105,7 +105,7 @@ void main() {
 
     expect(find.text('SSIDs are empty'), findsOneWidget);
     expect(find.byTooltip('Add'), findsOneWidget);
-    expect(find.text('Select all'), findsNothing);
+    expect(find.byTooltip('Select all'), findsNothing);
     expect(find.byGlyph(AppGlyphs.delete), findsNothing);
   });
 
@@ -127,7 +127,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byGlyph(AppGlyphs.delete), findsOneWidget);
-    expect(find.text('Select all'), findsOneWidget);
+    expect(find.byTooltip('Select all'), findsOneWidget);
     expect(find.byTooltip('Add'), findsNothing);
   });
 
@@ -138,11 +138,11 @@ void main() {
     await tester.tap(find.byType(CommonCheckBox).first);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Select all'));
+    await tester.tap(find.byTooltip('Select all'));
     await tester.pumpAndSettle();
     expect(container.read(itemsProvider(_viewKey(tester))), {'Home', 'Office'});
 
-    await tester.tap(find.text('Select all'));
+    await tester.tap(find.byTooltip('Select all'));
     await tester.pumpAndSettle();
     expect(
       find.byTooltip('Add'),

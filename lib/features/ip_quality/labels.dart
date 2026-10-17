@@ -1,5 +1,6 @@
 import 'package:miniclash/common/common.dart';
 import 'package:miniclash/enum/enum.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:material_ui/material_ui.dart';
 
 extension IpTypeLabel on IpType {

@@ -1,4 +1,4 @@
-import 'package:miniclash/common/font.dart';
+import 'package:miniclash/ui/font.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 

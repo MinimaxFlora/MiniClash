@@ -1,23 +1,34 @@
 import 'package:miniclash/enum/enum.dart';
 import 'package:miniclash/models/models.dart';
 import 'package:miniclash/state.dart';
+import 'package:miniclash/ui/typography.dart';
 import 'package:flutter/widgets.dart';
 
 const proxyGridSpacing = 8.0;
 
 double get listHeaderHeight {
   final measure = globalState.measure;
-  return 20 + measure.titleSmallHeight + 2 + measure.labelSmallHeight + 2;
+  return 20 +
+      measure.textHeight(AppTextStyle.callout) +
+      2 +
+      measure.textHeight(AppTextStyle.caption1) +
+      2;
 }
 
 double getItemHeight(ProxyCardType proxyCardType) {
   final measure = globalState.measure;
   final baseHeight =
-      16 + measure.bodyMediumHeight * 2 + measure.bodySmallHeight + 8 + 4;
+      16 +
+      measure.textHeight(AppTextStyle.subheadline) * 2 +
+      measure.textHeight(AppTextStyle.footnote) +
+      8 +
+      4;
   return switch (proxyCardType) {
-    ProxyCardType.expand => baseHeight + measure.labelSmallHeight + 6,
-    ProxyCardType.shrink => baseHeight,
-    ProxyCardType.min => baseHeight - measure.bodyMediumHeight,
+    ProxyCardType.loose =>
+      baseHeight + measure.textHeight(AppTextStyle.caption2) + 6,
+    ProxyCardType.standard => baseHeight,
+    ProxyCardType.compact =>
+      baseHeight - measure.textHeight(AppTextStyle.subheadline),
   };
 }
 
@@ -41,8 +52,6 @@ class GroupOffsets {
     }
     return offsets[index];
   }
-
-  Group? groupOf(String groupName) => groups.getGroup(groupName);
 }
 
 double? selectedRowOffset({

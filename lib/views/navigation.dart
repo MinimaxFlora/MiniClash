@@ -1,7 +1,7 @@
 import 'package:miniclash/common/app_ports.dart';
 import 'package:miniclash/enum/enum.dart';
-import 'package:miniclash/icons/app_glyphs.dart';
 import 'package:miniclash/models/models.dart';
+import 'package:miniclash/ui/icons/app_glyphs.dart';
 import 'package:miniclash/views/views.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -15,7 +15,6 @@ class Navigation implements NavigationPort {
   }) {
     return [
       NavigationItem(
-        keep: false,
         glyph: AppGlyphs.dashboard,
         label: PageLabel.dashboard,
         builder: (_) =>

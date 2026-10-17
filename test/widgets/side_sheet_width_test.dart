@@ -1,8 +1,8 @@
 import 'package:miniclash/providers/app.dart';
-import 'package:miniclash/widgets/paged_sheet.dart';
-import 'package:miniclash/widgets/scaffold.dart';
-import 'package:miniclash/widgets/sheet.dart';
-import 'package:miniclash/widgets/side_sheet.dart';
+import 'package:miniclash/ui/paged_sheet.dart';
+import 'package:miniclash/ui/scaffold.dart';
+import 'package:miniclash/ui/sheet.dart';
+import 'package:miniclash/ui/side_sheet.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 

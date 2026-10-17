@@ -1,9 +1,4 @@
-import 'package:miniclash/common/common.dart';
-import 'package:miniclash/widgets/inherited.dart';
-import 'package:miniclash/widgets/scaffold.dart';
-import 'package:miniclash/widgets/scroll.dart';
-import 'package:miniclash/widgets/sheet.dart';
-import 'package:miniclash/widgets/sheet_header.dart';
+import 'package:miniclash/ui/ui.dart';
 import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';

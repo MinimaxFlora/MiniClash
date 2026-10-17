@@ -1,4 +1,4 @@
-import 'package:miniclash/widgets/caret_popup.dart';
+import 'package:miniclash/ui/caret_popup.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 
