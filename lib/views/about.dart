@@ -96,14 +96,14 @@ class AboutView extends ConsumerWidget {
               _buildLinkItem(
                 glyph: AppGlyphs.cpu,
                 title: appLocalizations.core,
-                url: 'https://github.com/chen08209/Clash.Meta/tree/MiniClash',
+                url: 'https://github.com/chen08209/Clash.Meta/tree/FlClash',
                 label: 'github.com/chen08209/Clash.Meta',
               ),
               _buildLinkItem(
                 glyph: AppGlyphs.send,
                 title: 'Telegram',
-                url: 'https://t.me/MiniClash',
-                label: 't.me/MiniClash',
+                url: 'https://t.me/MiniClashPro',
+                label: 't.me/MiniClashPro',
               ),
             ],
           ),

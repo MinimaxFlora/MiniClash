@@ -11,7 +11,7 @@ A multi-platform proxy client based on ClashMeta. Simple to use, open source and
 [![Release](https://img.shields.io/github/v/release/MinimaxFlora/MiniClash?style=flat-square&label=release)](https://github.com/MinimaxFlora/MiniClash/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/MinimaxFlora/MiniClash/total?style=flat-square&logo=github)](https://github.com/MinimaxFlora/MiniClash/releases)
 [![License](https://img.shields.io/github/license/MinimaxFlora/MiniClash?style=flat-square)](LICENSE)
-[![Telegram](https://img.shields.io/badge/Telegram-channel-26A5E4?style=flat-square&logo=telegram&logoColor=white)](https://t.me/MiniClash)
+[![Telegram](https://img.shields.io/badge/Telegram-channel-26A5E4?style=flat-square&logo=telegram&logoColor=white)](https://t.me/MiniClashPro)
 
 [Website](https://MinimaxFlora.github.io/MiniClash) · [Download](#download) · [Changelog](CHANGELOG.md) · [Build from source](#build-from-source)
 
@@ -123,7 +123,7 @@ Run `dart setup.dart --help` for the remaining options, such as `--targets` to b
 ## Support
 
 Starring the repository is the easiest way to support the project. Questions and announcements go to the
-[Telegram channel](https://t.me/MiniClash); bugs and feature requests go to
+[Telegram channel](https://t.me/MiniClashPro); bugs and feature requests go to
 [GitHub Issues](https://github.com/MinimaxFlora/MiniClash/issues).
 
 <a href="https://star-history.com/#MinimaxFlora/MiniClash&Date">

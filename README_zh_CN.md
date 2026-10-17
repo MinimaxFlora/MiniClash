@@ -11,7 +11,7 @@
 [![Release](https://img.shields.io/github/v/release/MinimaxFlora/MiniClash?style=flat-square&label=release)](https://github.com/MinimaxFlora/MiniClash/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/MinimaxFlora/MiniClash/total?style=flat-square&logo=github)](https://github.com/MinimaxFlora/MiniClash/releases)
 [![License](https://img.shields.io/github/license/MinimaxFlora/MiniClash?style=flat-square)](LICENSE)
-[![Telegram](https://img.shields.io/badge/Telegram-channel-26A5E4?style=flat-square&logo=telegram&logoColor=white)](https://t.me/MiniClash)
+[![Telegram](https://img.shields.io/badge/Telegram-channel-26A5E4?style=flat-square&logo=telegram&logoColor=white)](https://t.me/MiniClashPro)
 
 [官网](https://MinimaxFlora.github.io/MiniClash/zh) · [下载](#下载) · [更新日志](CHANGELOG.md) · [从源码构建](#从源码构建)
 
@@ -115,7 +115,7 @@ dart setup.dart android   # 或 windows、macos、linux
 
 ## 支持
 
-给仓库点一个 Star 是支持项目最简单的方式。问题讨论和更新通知请关注 [Telegram 频道](https://t.me/MiniClash)，
+给仓库点一个 Star 是支持项目最简单的方式。问题讨论和更新通知请关注 [Telegram 频道](https://t.me/MiniClashPro)，
 Bug 与功能建议请提交到 [GitHub Issues](https://github.com/MinimaxFlora/MiniClash/issues)。
 
 <a href="https://star-history.com/#MinimaxFlora/MiniClash&Date">
