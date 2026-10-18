@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  FLUTTER_VERSION: '3.47.6'
+  DART_VERSION: '3.13.5'
 
 jobs:
   post:
@@ -15,19 +15,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: stable
-          cache: true
+          sdk: ${{ env.DART_VERSION }}
 
       - name: Render telegram notes
         run: |
-          flutter pub get
           mkdir -p dist
-          dart run tool/changelog.dart render telegram --tag v0.1.2 --out telegram.md
-          cat telegram.md
+          # The changelog tool needs only package:args, so it runs from a
+          # scratch package and never triggers the app's native build hooks.
+          mkdir -p /tmp/cl
+          cp -r tool /tmp/cl/tool
+          cd /tmp/cl
+          printf 'name: cl\nenvironment:\n  sdk: ">=3.0.0 <4.0.0"\ndependencies:\n  args: any\n' > pubspec.yaml
+          dart pub get
+          dart run tool/changelog.dart render telegram --tag v0.1.2 \
+            --root "$GITHUB_WORKSPACE" --out telegram.md
+          cat "$GITHUB_WORKSPACE/telegram.md"
 
       - name: Post to telegram
         env:
