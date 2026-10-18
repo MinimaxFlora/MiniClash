@@ -12,10 +12,10 @@ RUN_ID = os.getenv("RUN_ID")
 IS_STABLE = "-" not in TAG
 
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "@MiniClashPro")
-# The public Bot API rejects uploads over 50 MB, so an installer bigger than
-# this stays on the release page and the post carries the changelog alone.
-API_BASE = os.getenv("TELEGRAM_API_URL", "https://api.telegram.org")
-UPLOAD_LIMIT = 45 * 1024 * 1024
+# The public Bot API stops at 50 MB, which is under every APK and dmg here, so
+# the workflow runs the local Bot API server the upload job declares and posts
+# through that instead. It serves the same methods with a 2 GB upload cap.
+API_BASE = os.getenv("TELEGRAM_API_URL", "http://localhost:8081")
 
 DIST_DIR = os.path.join(os.getcwd(), "dist")
 # Rendered by `tool/changelog.dart render telegram`: plain bullets, already
@@ -41,10 +41,7 @@ for file in os.listdir(DIST_DIR):
     file_path = os.path.join(DIST_DIR, file)
     if os.path.isfile(file_path):
         file_lower = file.lower()
-        if (
-            any(kw in file_lower for kw in releaseKeywords)
-            and os.path.getsize(file_path) <= UPLOAD_LIMIT
-        ):
+        if any(kw in file_lower for kw in releaseKeywords):
             file_key = f"file{i}"
             media.append({
                 "type": "document",

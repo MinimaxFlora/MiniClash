@@ -457,6 +457,17 @@ jobs:
       contents: write
     needs: [ build, dart, plugins, go, android, rust, windows-helper-test ]
     runs-on: ubuntu-26.04
+    # The public Bot API caps an upload at 50 MB, and every APK and dmg here is
+    # larger than that. A local Bot API server raises the cap to 2 GB, so the
+    # post can carry the installers the release page has.
+    services:
+      telegram-bot-api:
+        image: aiogram/telegram-bot-api:latest
+        env:
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+        ports:
+          - 8081:8081
     steps:
       - name: Checkout
         uses: actions/checkout@v7
