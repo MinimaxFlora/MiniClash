@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.3 (2026-10-18)
+
+**Bug Fixes**
+
+- **subscription** Send the FlClash user agent again, so airport panels that key the config they serve off it return the nodes instead of an empty proxy list (be634f3)
+
 ## v0.1.2 (2026-10-17)
 
 **Breaking Changes**
@@ -36,6 +42,8 @@
 
 <!-- changelog:frozen -->
 <!-- Entries below predate the structured pipeline. Their wording is kept as written; only the heading and list style were normalized. -->
+
+
 
 
 
