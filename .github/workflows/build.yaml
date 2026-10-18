@@ -457,17 +457,6 @@ jobs:
       contents: write
     needs: [ build, dart, plugins, go, android, rust, windows-helper-test ]
     runs-on: ubuntu-26.04
-    # The public Bot API caps an upload at 50 MB, and every APK and dmg here is
-    # larger than that. A local Bot API server raises the cap to 2 GB, so the
-    # post can carry the installers the release page has.
-    services:
-      telegram-bot-api:
-        image: aiogram/telegram-bot-api:latest
-        env:
-          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
-          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
-        ports:
-          - 8081:8081
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -534,11 +523,26 @@ jobs:
         continue-on-error: true
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
           TAG: ${{ github.ref_name }}
           RUN_ID: ${{ github.run_id }}
         run: |
           python3 -c 'import requests' 2>/dev/null ||
             python3 -m pip install --user --break-system-packages --quiet requests
+          # The public API caps an upload at 50 MB and every APK and dmg here is
+          # larger, so the installers ride a local API server with a 2 GB cap.
+          # Starting it here rather than in `services:` keeps a missing
+          # credential from failing the job before the release is published.
+          docker run --detach --name telegram-bot-api \
+            --publish 127.0.0.1:8081:8081 \
+            --env TELEGRAM_API_ID --env TELEGRAM_API_HASH \
+            aiogram/telegram-bot-api:latest
+          for _ in $(seq 30); do
+            curl -sf "http://127.0.0.1:8081/bot$TELEGRAM_BOT_TOKEN/getMe" >/dev/null &&
+              break
+            sleep 2
+          done
           python3 release_telegram.py
 
       - name: Create Homebrew Cask Source Dir
