@@ -85,12 +85,25 @@ print(
 # HTML, not Markdown: the caption carries changelog entries written by whoever
 # wrote the commit, and HTML is the one Telegram parse mode with a defined
 # escape for them. `tool/changelog.dart render telegram` emits matching markup.
-if media:
+if len(media) > 1:
     media[-1]["caption"] = text
     media[-1]["parse_mode"] = "HTML"
     request = {
         "url": f"{API_BASE}/bot{TELEGRAM_BOT_TOKEN}/sendMediaGroup",
         "data": {"chat_id": CHAT_ID, "media": json.dumps(media)},
+        "files": files,
+    }
+elif media:
+    # A media group needs two items, and one installer under the upload limit
+    # is the normal case once the APKs outgrow it.
+    request = {
+        "url": f"{API_BASE}/bot{TELEGRAM_BOT_TOKEN}/sendDocument",
+        "data": {
+            "chat_id": CHAT_ID,
+            "document": "attach://file1",
+            "caption": text,
+            "parse_mode": "HTML",
+        },
         "files": files,
     }
 else:
