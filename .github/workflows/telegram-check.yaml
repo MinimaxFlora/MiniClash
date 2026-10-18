@@ -40,4 +40,17 @@ jobs:
           TAG: v0.1.2
         run: |
           python3 -m pip install --user --break-system-packages --quiet requests
+          python3 - <<'PY'
+          import json, os, requests
+          base = "https://api.telegram.org/bot" + os.environ["TELEGRAM_BOT_TOKEN"]
+          chat = requests.get(base + "/getChat", params={"chat_id": "@MiniClashPro"}, timeout=30).json()
+          result = chat.get("result") or {}
+          print("resolved:", {k: result.get(k) for k in ("id", "title", "username", "type")})
+          print("getChat error:", chat.get("description", ""))
+          admins = requests.get(
+              base + "/getChatAdministrators", params={"chat_id": "@MiniClashPro"}, timeout=30
+          ).json()
+          print("admins:", [u["user"].get("username") for u in admins.get("result") or []])
+          print("admins error:", admins.get("description", ""))
+          PY
           python3 release_telegram.py
