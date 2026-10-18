@@ -15,14 +15,8 @@ env:
 jobs:
   post:
     runs-on: ubuntu-26.04
-    services:
-      telegram-bot-api:
-        image: aiogram/telegram-bot-api:latest
-        env:
-          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
-          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
-        ports:
-          - 8081:8081
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -52,9 +46,37 @@ jobs:
             --root "$GITHUB_WORKSPACE" --out telegram.md
           cat "$GITHUB_WORKSPACE/telegram.md"
 
+      # Fetching the real installers is what makes this a test of the posting
+      # path: file sizes decide between a media group and a text post.
+      - name: Download release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release download "$TAG" --dir dist --clobber \
+              --pattern '*windows-amd64-setup*' \
+              --pattern '*android-arm64*' \
+              --pattern '*macos-arm64*' \
+              --pattern '*macos-amd64*'
+            ls -l dist
+          else
+            echo "No release for $TAG; the post carries the notes alone"
+          fi
+
       - name: Post to telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
         run: |
           python3 -m pip install --user --break-system-packages --quiet requests
+          docker run --detach --name telegram-bot-api \
+            --publish 127.0.0.1:8081:8081 \
+            --env TELEGRAM_API_ID --env TELEGRAM_API_HASH \
+            aiogram/telegram-bot-api:latest
+          for _ in $(seq 30); do
+            curl -sf "http://127.0.0.1:8081/bot$TELEGRAM_BOT_TOKEN/getMe" >/dev/null &&
+              break
+            sleep 2
+          done
           python3 release_telegram.py
