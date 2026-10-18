@@ -1,7 +1,13 @@
 name: telegram-check
 
+# Posts the notes for one tag without rebuilding the artifacts, so channel
+# access can be checked after a permission change instead of with a new tag.
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to announce, defaults to the newest one
+        required: false
 
 env:
   DART_VERSION: '3.13.5'
@@ -21,7 +27,11 @@ jobs:
           sdk: ${{ env.DART_VERSION }}
 
       - name: Render telegram notes
+        env:
+          TAG_INPUT: ${{ inputs.tag }}
         run: |
+          tag="${TAG_INPUT:-$(git describe --tags --abbrev=0)}"
+          echo "TAG=$tag" >> "$GITHUB_ENV"
           mkdir -p dist
           # The changelog tool needs only package:args, so it runs from a
           # scratch package and never triggers the app's native build hooks.
@@ -30,27 +40,13 @@ jobs:
           cd /tmp/cl
           printf 'name: cl\nenvironment:\n  sdk: ">=3.0.0 <4.0.0"\ndependencies:\n  args: any\n' > pubspec.yaml
           dart pub get
-          dart run tool/changelog.dart render telegram --tag v0.1.2 \
+          dart run tool/changelog.dart render telegram --tag "$tag" \
             --root "$GITHUB_WORKSPACE" --out telegram.md
           cat "$GITHUB_WORKSPACE/telegram.md"
 
       - name: Post to telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TAG: v0.1.2
         run: |
           python3 -m pip install --user --break-system-packages --quiet requests
-          python3 - <<'PY'
-          import json, os, requests
-          base = "https://api.telegram.org/bot" + os.environ["TELEGRAM_BOT_TOKEN"]
-          chat = requests.get(base + "/getChat", params={"chat_id": "@MiniClashPro"}, timeout=30).json()
-          result = chat.get("result") or {}
-          print("resolved:", {k: result.get(k) for k in ("id", "title", "username", "type")})
-          print("getChat error:", chat.get("description", ""))
-          admins = requests.get(
-              base + "/getChatAdministrators", params={"chat_id": "@MiniClashPro"}, timeout=30
-          ).json()
-          print("admins:", [u["user"].get("username") for u in admins.get("result") or []])
-          print("admins error:", admins.get("description", ""))
-          PY
           python3 release_telegram.py
