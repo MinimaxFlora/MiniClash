@@ -67,6 +67,21 @@ if os.path.exists(release):
         text += f.read()
     text += "\n"
 
+# A 403 only says the bot is not in the channel, never which bot the secret
+# belongs to, so name the token's bot and its membership before the attempt.
+me = requests.get(f"{API_BASE}/bot{TELEGRAM_BOT_TOKEN}/getMe", timeout=30).json()
+bot = me.get("result") or {}
+print(f"Bot: @{bot.get('username')} (id {bot.get('id')})")
+member = requests.get(
+    f"{API_BASE}/bot{TELEGRAM_BOT_TOKEN}/getChatMember",
+    params={"chat_id": CHAT_ID, "user_id": bot.get("id")},
+    timeout=30,
+).json()
+print(
+    f"Membership in {CHAT_ID}: {member.get('result', {}).get('status')} "
+    f"{member.get('description', '')}".rstrip()
+)
+
 # HTML, not Markdown: the caption carries changelog entries written by whoever
 # wrote the commit, and HTML is the one Telegram parse mode with a defined
 # escape for them. `tool/changelog.dart render telegram` emits matching markup.
